@@ -25,25 +25,12 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        
       ),
       home: LoginPage(
         title: "Flora Issue Tracker",
@@ -55,15 +42,6 @@ class Login extends StatelessWidget {
 
 class LoginPage extends StatefulWidget {
   LoginPage({key, required this.icon, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -89,15 +67,11 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     initialization();
-    // Timer.periodic(const Duration(seconds: 150), locationUpdate_cb);
-    // _checkAndRequestLocationPermission();
+  
   }
 
   void initialization() async {
-    // This is where you can initialize the resources needed by your app while
-    // the splash screen is displayed.  Remove the following example because
-    // delaying the user experience is a bad design practice!
-    // ignore_for_file: avoid_print
+  
     await Future.delayed(const Duration(seconds: 3));
     // print('go!');
     FlutterNativeSplash.remove();
@@ -165,15 +139,6 @@ class _LoginPageState extends State<LoginPage> {
   void _loginIntoTracker() async {
     final storage = new FlutterSecureStorage();
 
-    // Write value
-
-    // Create storage
-    // This call to setState tells the Flutter framework that something has
-    // changed in this State, which causes it to rerun the build method below
-    // so that the display can reflect the updated values. If we changed
-    // _counter without calling setState(), then the build method would not be
-    // called again, and so nothing would appear to happen.
-    // _counter++;
     developer.log("Logging in!");
 
     AuthController().login(_userName, _passWordVal).then(
@@ -249,24 +214,14 @@ class _LoginPageState extends State<LoginPage> {
 
   _changePassword(String passWord) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      // _counter++;
+
       _passWordVal = passWord;
     });
   }
 
   void _changeUsername(String userName) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      // _counter++;
+   
       _userName = userName;
     });
   }
@@ -364,10 +319,11 @@ class _LoginPageState extends State<LoginPage> {
                     // ],
                     // linear-gradient(90deg, rgba(58,180,175,1) 0%, rgba(69,180,252,1) 48%);
                     colors: <Color>[
-                      const Color.fromARGB(255, 109, 137, 151),
-                      Color.fromARGB(150, 109, 137, 151),
-                      Color.fromRGBO(129, 131, 218, 0.89),
-                      Color.fromRGBO(125, 127, 248, 1),
+                       Colors.white,
+                      // Color.fromARGB(150, 109, 137, 151),
+                      //back to orginal color
+                      Colors.white,
+                      Colors.white,
                     ],
                     tileMode: TileMode.mirror,
                   ),
@@ -398,7 +354,7 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                         // margin: EdgeInsets.only(bottom: height * 0.0206985),
                         child: Text(
-                      "Flora support system",
+                      "Flora Support System",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -414,18 +370,25 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         // resizeToAvoidBottomInset: false,
                         decoration: InputDecoration(
-                          label: Text(
-                            "Username ",
+                             label: Text(
+                            "Enter username ",
                             style: TextStyle(
                               color: const Color.fromARGB(255, 255, 179, 0),
                             ),
+                            
                           ),
+                                prefixIcon: const Icon(Icons.person),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                       
                           // contentPadding: EdgeInsetsDirectional.all(5.0),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               width: 2.25,
                               color: const Color.fromARGB(255, 255, 179, 0),
                             ),
+                            
                           ),
                         ),
                         onChanged: (value) => {
@@ -450,11 +413,15 @@ class _LoginPageState extends State<LoginPage> {
                                     : Icons.visibility,
                                 color: const Color.fromARGB(255, 255, 179, 0)),
                           ),
-                          label: Text(
-                            "Password",
+                          label: const Text(
+                            "Enter password",
                             style: TextStyle(
                                 color: const Color.fromARGB(255, 255, 179, 0)),
                           ),
+                              prefixIcon: const Icon(Icons.person),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                           contentPadding: EdgeInsetsDirectional.all(5.0),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
